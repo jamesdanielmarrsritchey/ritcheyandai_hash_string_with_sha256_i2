@@ -1,0 +1,178 @@
+jamesdanielmarrsritchey: Write a Javascript function which hashes a string with SHA-256.
+
+GitHub Copilot: Sure, here's a simple function that hashes a string using SHA-256 in JavaScript. This function uses the `crypto-js` library, so make sure to install it using npm (`npm install crypto-js`) before running the code.
+
+```javascript
+const CryptoJS = require("crypto-js
+
+");
+
+
+
+function hashWithSHA256(input) {
+    return CryptoJS.SHA256(input).toString();
+}
+```
+
+You can use this function like this:
+
+```javascript
+console.log(hashWithSHA256("Hello, World!"));
+```
+
+This will print the SHA-256 hash of the string "Hello, World!" to the console.
+
+jamesdanielmarrsritchey: Don't use the Crypto-js library.
+
+GitHub Copilot: Sure, you can use the built-in `crypto` module in Node.js to hash a string with SHA-256. Here's how you can do it:
+
+```javascript
+const crypto = require('crypto
+
+');
+
+
+
+function hashWithSHA256(input) {
+    const hash = crypto.createHash('sha256');
+    hash.update(input);
+    return hash.digest('hex');
+}
+```
+
+You can use this function like this:
+
+```javascript
+console.log(hashWithSHA256("Hello, World!"));
+```
+
+This will print the SHA-256 hash of the string "Hello, World!" to the console.
+
+jamesdanielmarrsritchey: Don't use node.js. This needs to work in browser.
+
+GitHub Copilot: In a browser environment, you can use the Web Crypto API to hash a string with SHA-256. Here's how you can do it:
+
+```javascript
+async function hashWithSHA256(message) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const hash = await window.crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+```
+
+You can use this function like this:
+
+```javascript
+hashWithSHA256("Hello, World!").then(console.log);
+```
+
+This will print the SHA-256 hash of the string "Hello, World!" to the console. Please note that the Web Crypto API is not available in all browsers.
+
+jamesdanielmarrsritchey: How can this be used to replace the innerHTML of an element.
+
+GitHub Copilot: You can use the `hashWithSHA256` function to replace the `innerHTML` of an HTML element by selecting the element using `document.querySelector` or `document.getElementById` and then setting its `innerHTML` property to the hash. Here's an example:
+
+```javascript
+async function hashWithSHA256(message) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const hash = await window.crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+hashWithSHA256("Hello, World!").then(hash => {
+    const element = document.querySelector("#myElement");
+    if (element) {
+        element.innerHTML = hash;
+    }
+});
+```
+
+In this example, replace `"#myElement"` with the selector for the element you want to change. If the element is found, its `innerHTML` will be replaced with the SHA-256 hash of the string "Hello, World!".
+
+jamesdanielmarrsritchey: Put the example in a comment.
+
+GitHub Copilot: Sure, here's the code with the example usage in a comment:
+
+```javascript
+
+
+async
+
+ function hashWithSHA256(message) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const hash = await window.crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Example usage:
+// hashWithSHA256("Hello, World!").then(hash => {
+//     const element = document.querySelector("#myElement");
+//     if (element) {
+//         element.innerHTML = hash;
+//     }
+// });
+```
+
+jamesdanielmarrsritchey: use a multiline comment
+
+GitHub Copilot: Sure, here's the code with the example usage in a multiline comment:
+
+```javascript
+async function hashWithSHA256(message) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const hash = await window.crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/*
+Example usage:
+
+hashWithSHA256("Hello, World!").then(hash => {
+    const element = document.querySelector("#myElement");
+    if (element) {
+        element.innerHTML = hash;
+    }
+});
+*/
+```
+
+jamesdanielmarrsritchey: Add an additional comment showing how to use this function onClick to replace innerHTML with a checksum of that innerHTML.
+
+GitHub Copilot: Sure, here's the function with an additional comment showing how to use it in an `onClick` event handler to replace the `innerHTML` of an element with a checksum of its current `innerHTML`:
+
+```javascript
+async function hashWithSHA256(message) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const hash = await window.crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/*
+Example usage:
+
+hashWithSHA256("Hello, World!").then(hash => {
+    const element = document.querySelector("#myElement");
+    if (element) {
+        element.innerHTML = hash;
+    }
+});
+
+Additional example: Using this function in an onClick event handler to replace the innerHTML of an element with a checksum of its current innerHTML
+
+document.querySelector("#myButton").addEventListener("click", function() {
+    const element = document.querySelector("#myElement");
+    if (element) {
+        hashWithSHA256(element.innerHTML).then(hash => {
+            element.innerHTML = hash;
+        });
+    }
+});
+*/
+```
+
+In this additional example, replace `"#myButton"` with the selector for the button that will trigger the event, and replace `"#myElement"` with the selector for the element whose `innerHTML` you want to replace. When the button is clicked, the `innerHTML` of the selected element will be replaced with its SHA-256 hash.

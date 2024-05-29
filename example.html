@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example</title>
+</head>
+<body>
+<div id='output'>Click here to replace with SHA-256 checksum.</div>
+<script src="function.js"></script>
+<script>
+document.querySelector("#output").addEventListener("click", function() {
+    const element = document.querySelector("#output");
+    if (element) {
+        hashWithSHA256(element.innerHTML).then(hash => {
+            element.innerHTML = hash;
+        });
+    }
+});
+</script>
+</body>
+</html>
